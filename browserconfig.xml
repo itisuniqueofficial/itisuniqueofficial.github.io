@@ -1,2 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?>
-<browserconfig><msapplication><tile><square70x70logo src="/ms-icon-70x70.png"/><square150x150logo src="/ms-icon-150x150.png"/><square310x310logo src="/ms-icon-310x310.png"/><TileColor>#ffffff</TileColor></tile></msapplication></browserconfig>
+<?xml version="1.0" encoding="UTF-8"?>
+<browserconfig>
+    <msapplication>
+        <!-- Define Tile configurations -->
+        <tile>
+            <!-- Square logo for small tiles (70x70 pixels) -->
+            <square70x70logo src="/ms-icon-70x70.png"/>
+            <!-- Square logo for medium tiles (150x150 pixels) -->
+            <square150x150logo src="/ms-icon-150x150.png"/>
+            <!-- Square logo for large tiles (310x310 pixels) -->
+            <square310x310logo src="/ms-icon-310x310.png"/>
+            <!-- Tile background color -->
+            <TileColor>#ffffff</TileColor>
+        </tile>
+        
+        <!-- Define additional meta information -->
+        <meta name="msapplication-config" content="/browserconfig.xml"/>
+        <meta name="theme-color" content="#ffffff"/>
+    </msapplication>
+</browserconfig>
