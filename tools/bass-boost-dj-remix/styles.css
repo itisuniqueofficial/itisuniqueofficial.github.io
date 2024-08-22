@@ -35,6 +35,9 @@ h1 {
     font-weight: bold;
 }
 
+a {
+    text-decoration:none;
+}
 input[type="file"] {
     margin: 20px 0;
     padding: 12px;
