@@ -1,7 +1,7 @@
 [
     {
         "domain": ".chatgpt.com",
-        "expirationDate": 1727023673.495696,
+        "expirationDate": 1726421673.495696,
         "hostOnly": false,
         "httpOnly": false,
         "name": "_puid",
@@ -14,7 +14,7 @@
     },
     {
         "domain": ".chatgpt.com",
-        "expirationDate": 1734194871.77485,
+        "expirationDate": 1726421671.77485,
         "hostOnly": false,
         "httpOnly": true,
         "name": "__Secure-next-auth.session-token",
@@ -27,7 +27,7 @@
     },
     {
         "domain": "chatgpt.com",
-        "expirationDate": 1726419777.239244,
+        "expirationDate": 1726421677.239244,
         "hostOnly": true,
         "httpOnly": true,
         "name": "__cflb",
@@ -40,7 +40,7 @@
     },
     {
         "domain": "chatgpt.com",
-        "expirationDate": 1757522477.336501,
+        "expirationDate": 1726421677.336501,
         "hostOnly": true,
         "httpOnly": false,
         "name": "oai-hlib",
@@ -53,7 +53,7 @@
     },
     {
         "domain": "chatgpt.com",
-        "expirationDate": 1726419784,
+        "expirationDate": 1726421684,
         "hostOnly": true,
         "httpOnly": false,
         "name": "_dd_s",
@@ -66,7 +66,7 @@
     },
     {
         "domain": ".chatgpt.com",
-        "expirationDate": 1726419777.2389,
+        "expirationDate": 1726421677.2389,
         "hostOnly": false,
         "httpOnly": true,
         "name": "__cf_bm",
@@ -115,7 +115,7 @@
     },
     {
         "domain": ".chatgpt.com",
-        "expirationDate": 1757512429.185184,
+        "expirationDate": 1726421677.185184,
         "hostOnly": false,
         "httpOnly": false,
         "name": "oai-did",
@@ -128,7 +128,7 @@
     },
     {
         "domain": "chatgpt.com",
-        "expirationDate": 1760978872.62314,
+        "expirationDate": 1726421677.62314,
         "hostOnly": true,
         "httpOnly": false,
         "name": "oai-nav-state",
