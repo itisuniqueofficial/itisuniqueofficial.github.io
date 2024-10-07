@@ -3,111 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your IP Address and Location</title>
+    <title>Radar Information</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- CSS Styling -->
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 50px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #233a72, #4c6ef5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 50px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #4c6ef5;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
         .info {
-            margin-top: 20px;
             font-size: 18px;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .info p {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .info strong {
+            color: #4c6ef5;
+        }
+
+        .info i {
+            color: #4c6ef5;
+            font-size: 20px;
+        }
+
+        footer {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #888;
+        }
+
+        .highlight {
+            color: #4c6ef5;
+            font-weight: 500;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .info {
+                font-size: 16px;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Your IP Address and Location</h1>
-    <div class="info" id="ip-info">
-        Loading your IP address and location...
+
+    <div class="container">
+        <h1>Radar Information</h1>
+        <div class="info" id="ip-info">
+            Loading your Radar Information...
+        </div>
+        <footer>&copy; 2024 - <span class="highlight">Corporate Radar Information</span></footer>
     </div>
 
-    <!-- Firebase SDK (ES Modules) -->
-    <script type="module">
-        // Import Firebase libraries
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js';
-        import { getDatabase, ref, push } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js';
-
-        // Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyAfl5jUGBZN6RA1b7STV1cHutjHr8OBdRs",
-            authDomain: "radar-information.firebaseapp.com",
-            databaseURL: "https://radar-information-default-rtdb.firebaseio.com",
-            projectId: "radar-information",
-            storageBucket: "radar-information.appspot.com",
-            messagingSenderId: "187602607552",
-            appId: "1:187602607552:web:7cd1cde6a035739ab03c25",
-            measurementId: "G-KM7PF5F0YE"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
-
-        // Function to fetch IP and location data
-        function fetchIPData() {
-            return fetch('https://ipinfo.io/65921ede5909b9/json') // Using your provided token
-                .then(response => response.json())
-                .then(data => {
-                    return data; // Return the fetched data
-                })
-                .catch(error => {
-                    console.error('Error fetching IP info:', error);
-                    throw new Error('Failed to fetch IP info.');
-                });
-        }
-
-        // Function to display IP and location data on the webpage
-        function displayData(data) {
-            const ipInfoDiv = document.getElementById('ip-info');
-            ipInfoDiv.innerHTML = `
-                <p><strong>IP Address:</strong> ${data.ip}</p>
-                <p><strong>Country:</strong> ${data.country}</p>
-                <p><strong>Region:</strong> ${data.region}</p>
-                <p><strong>City:</strong> ${data.city}</p>
-                <p><strong>Timezone:</strong> ${data.timezone}</p>
-                <p><strong>ISP:</strong> ${data.org}</p>
-            `;
-        }
-
-        // Function to send data to Firebase Realtime Database
-        function sendDataToFirebase(data) {
-            const userIpInfoRef = ref(database, 'user-ip-info/');
-            push(userIpInfoRef, {
-                ipAddress: data.ip,
-                country: data.country,
-                region: data.region,
-                city: data.city,
-                timezone: data.timezone,
-                isp: data.org,
-                timestamp: new Date().toISOString()
-            })
-            .then(() => {
-                console.log("Data sent to Firebase successfully.");
+    <script>
+        // Fetch real public IP address using ipify API
+        fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => {
+                // Use ip-api to fetch additional details using the real IP
+                fetch(`http://ip-api.com/json/${data.ip}`)
+                    .then(response => response.json())
+                    .then(ipData => {
+                        const ipInfoDiv = document.getElementById('ip-info');
+                        const currentTime = new Date().toLocaleString("en-US", { timeZone: ipData.timezone });
+                        ipInfoDiv.innerHTML = `
+                            <p><i class="fas fa-network-wired"></i><strong>IP Address:</strong> ${ipData.query}</p>
+                            <p><i class="fas fa-globe"></i><strong>Timezone:</strong> ${ipData.timezone}</p>
+                            <p><i class="fas fa-broadcast-tower"></i><strong>ISP:</strong> ${ipData.isp}</p>
+                            <p><i class="fas fa-clock"></i><strong>Current Time:</strong> ${currentTime}</p>
+                        `;
+                    })
+                    .catch(error => {
+                        const ipInfoDiv = document.getElementById('ip-info');
+                        ipInfoDiv.innerHTML = `Error fetching IP information. Please try again later.`;
+                        console.error('Error fetching IP info:', error);
+                    });
             })
             .catch(error => {
-                console.error("Error sending data to Firebase:", error);
+                const ipInfoDiv = document.getElementById('ip-info');
+                ipInfoDiv.innerHTML = `Error fetching public IP address.`;
+                console.error('Error fetching public IP:', error);
             });
-        }
-
-        // Main function to fetch, display, and send data
-        function processIPData() {
-            fetchIPData()
-                .then(data => {
-                    // Step 1: Display the data on the webpage
-                    displayData(data);
-
-                    // Step 2: Send the data to Firebase after it's displayed
-                    sendDataToFirebase(data);
-                })
-                .catch(error => {
-                    document.getElementById('ip-info').innerHTML = "Failed to load IP address and location.";
-                    console.error("Error:", error);
-                });
-        }
-
-        // Trigger the process when the webpage loads
-        window.onload = processIPData;
     </script>
+
 </body>
 </html>
