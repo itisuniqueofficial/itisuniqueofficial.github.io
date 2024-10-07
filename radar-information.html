@@ -46,7 +46,7 @@
 
         // Function to fetch IP and location data
         function fetchIPData() {
-            return fetch('https://ip-api.com/json/')
+            return fetch('https://ipinfo.io/65921ede5909b9/json') // Using your provided token
                 .then(response => response.json())
                 .then(data => {
                     return data; // Return the fetched data
@@ -61,12 +61,12 @@
         function displayData(data) {
             const ipInfoDiv = document.getElementById('ip-info');
             ipInfoDiv.innerHTML = `
-                <p><strong>IP Address:</strong> ${data.query}</p>
+                <p><strong>IP Address:</strong> ${data.ip}</p>
                 <p><strong>Country:</strong> ${data.country}</p>
-                <p><strong>Region:</strong> ${data.regionName}</p>
+                <p><strong>Region:</strong> ${data.region}</p>
                 <p><strong>City:</strong> ${data.city}</p>
                 <p><strong>Timezone:</strong> ${data.timezone}</p>
-                <p><strong>ISP:</strong> ${data.isp}</p>
+                <p><strong>ISP:</strong> ${data.org}</p>
             `;
         }
 
@@ -74,12 +74,12 @@
         function sendDataToFirebase(data) {
             const userIpInfoRef = ref(database, 'user-ip-info/');
             push(userIpInfoRef, {
-                ipAddress: data.query,
+                ipAddress: data.ip,
                 country: data.country,
-                region: data.regionName,
+                region: data.region,
                 city: data.city,
                 timezone: data.timezone,
-                isp: data.isp,
+                isp: data.org,
                 timestamp: new Date().toISOString()
             })
             .then(() => {
