@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP and Location to Firebase</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .info {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Your IP Address and Location</h1>
+    <div class="info" id="ip-info">
+        Loading your IP address and location...
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js"></script>
+
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAfl5jUGBZN6RA1b7STV1cHutjHr8OBdRs",
+            authDomain: "radar-information.firebaseapp.com",
+            databaseURL: "https://radar-information-default-rtdb.firebaseio.com",
+            projectId: "radar-information",
+            storageBucket: "radar-information.appspot.com",
+            messagingSenderId: "187602607552",
+            appId: "1:187602607552:web:7cd1cde6a035739ab03c25",
+            measurementId: "G-KM7PF5F0YE"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // Function to fetch IP and location data
+        function fetchIPData() {
+            return fetch('https://ip-api.com/json/')
+                .then(response => response.json())
+                .then(data => {
+                    return data; // Return the fetched data
+                })
+                .catch(error => {
+                    console.error('Error fetching IP info:', error);
+                    throw new Error('Failed to fetch IP info.');
+                });
+        }
+
+        // Function to display IP and location data on the webpage
+        function displayData(data) {
+            const ipInfoDiv = document.getElementById('ip-info');
+            ipInfoDiv.innerHTML = `
+                <p><strong>IP Address:</strong> ${data.query}</p>
+                <p><strong>Country:</strong> ${data.country}</p>
+                <p><strong>Region:</strong> ${data.regionName}</p>
+                <p><strong>City:</strong> ${data.city}</p>
+                <p><strong>Timezone:</strong> ${data.timezone}</p>
+                <p><strong>ISP:</strong> ${data.isp}</p>
+            `;
+        }
+
+        // Function to send data to Firebase Realtime Database
+        function sendDataToFirebase(data) {
+            firebase.database().ref('user-ip-info/').push({
+                ipAddress: data.query,
+                country: data.country,
+                region: data.regionName,
+                city: data.city,
+                timezone: data.timezone,
+                isp: data.isp,
+                timestamp: new Date().toISOString()
+            })
+            .then(() => {
+                console.log("Data sent to Firebase successfully.");
+            })
+            .catch(error => {
+                console.error("Error sending data to Firebase:", error);
+            });
+        }
+
+        // Main function to fetch, display, and send data
+        function processIPData() {
+            fetchIPData()
+                .then(data => {
+                    // Step 1: Display the data on the webpage
+                    displayData(data);
+
+                    // Step 2: Send the data to Firebase after it's displayed
+                    sendDataToFirebase(data);
+                })
+                .catch(error => {
+                    document.getElementById('ip-info').innerHTML = "Failed to load IP address and location.";
+                    console.error("Error:", error);
+                });
+        }
+
+        // Trigger the process when the webpage loads
+        window.onload = processIPData;
+    </script>
+</body>
+</html>
