@@ -1,0 +1,16 @@
+#resultMessage {
+  text-align: center;
+  font-weight: bold;
+}
+.success {
+  color: green;
+}
+.error {
+  color: red;
+}
+#loadingSpinner {
+  display: none;
+  text-align: center;
+  font-style: italic;
+  color: blue;
+}
