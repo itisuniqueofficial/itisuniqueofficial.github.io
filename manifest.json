@@ -23,16 +23,12 @@
     {
       "src": "https://cdn.jsdelivr.net/gh/itisuniqueofficial/itisuniqueofficial.github.io@main/screenshot-1.png",
       "sizes": "500x806",
-      "type": "image/png",
-      "platform": "web",
-      "form_factor": "none"
+      "type": "image/png"
     },
     {
       "src": "https://cdn.jsdelivr.net/gh/itisuniqueofficial/itisuniqueofficial.github.io@main/screenshot-2.png",
       "sizes": "1910x922",
-      "type": "image/png",
-      "platform": "web",
-      "form_factor": "wide"
+      "type": "image/png"
     }
   ]
 }
